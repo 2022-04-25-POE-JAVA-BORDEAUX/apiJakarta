@@ -28,13 +28,15 @@ public class AnnuaireApi {
     
     @POST()
     @Consumes({ MediaType.APPLICATION_JSON })
-    public void postPersonne(Personne newPersonne, @Context HttpServletRequest request) {
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Personne postPersonne(Personne newPersonne, @Context HttpServletRequest request) {
         
         Annuaire annuaire = (Annuaire)request.getSession().getAttribute("annuaire");
         if(annuaire == null) {
             annuaire = new Annuaire();       
         }
-        annuaire.addPersonne(newPersonne);
+        Personne personne = annuaire.addPersonne(newPersonne);
         request.getSession().setAttribute("annuaire", annuaire);
+        return personne;
     }
 }

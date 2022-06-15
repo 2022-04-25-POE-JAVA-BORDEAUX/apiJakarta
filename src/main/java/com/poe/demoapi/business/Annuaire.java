@@ -9,10 +9,11 @@ public class Annuaire {
     private long nextId = 1;
     
 
-    public void addPersonne(Personne newPersonne){
+    public Personne addPersonne(Personne newPersonne){
         newPersonne.setId(nextId);
         nextId++;
         personnes.add(newPersonne);
+        return newPersonne;
     }
 
     public ArrayList<Personne> getPersonnes() {
