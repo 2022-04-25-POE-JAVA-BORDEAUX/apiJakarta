@@ -32,6 +32,9 @@ public class Annuaire {
             if(p.getId().equals(personne.getId())){
                 personnes.remove(p);
                 personnes.add(personne);
+                
+                //int index = personnes.indexOf(personne)
+                //personnes.set(index, personne);
             }
         }
     }
