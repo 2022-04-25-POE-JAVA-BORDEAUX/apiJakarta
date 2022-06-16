@@ -1,6 +1,7 @@
 package com.poe.demoapi.business;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Optional;
 
 public class Annuaire {
@@ -29,15 +30,28 @@ public class Annuaire {
     }
     
     public void updatePersonne(Personne personne){
-        for(Personne p : personnes){
-            if(p.getId().equals(personne.getId())){
-                personnes.remove(p);
-                personnes.add(personne);
-                
-                //int index = personnes.indexOf(personne)
-                //personnes.set(index, personne);
+  
+        Iterator<Personne> it = personnes.iterator();
+        int index = 0;
+        while(it.hasNext() && index==0){
+            Personne p = it.next();
+             if(p.getId().equals(personne.getId())){
+                index = personnes.indexOf(p);
             }
         }
+        
+        personnes.set(index, personne);
+        
+        
+//        for(Personne p : personnes){
+//            if(p.getId().equals(personne.getId())){
+////                personnes.remove(p);
+////                personnes.add(personne);
+//                
+//                int index = personnes.indexOf(personne);
+//                personnes.set(index, personne);
+//            }
+//        }
     }
     
     public void deletePersonne(long id){
