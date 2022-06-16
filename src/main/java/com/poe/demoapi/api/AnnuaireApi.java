@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -70,6 +71,18 @@ public class AnnuaireApi {
             annuaire = new Annuaire();       
         }
         annuaire.updatePersonne(personne);
+        request.getSession().setAttribute("annuaire", annuaire);
+    }
+    
+    
+    @Path("/{id}")
+    @DELETE()
+    public void deletePersonnne(@PathParam("id") long personneId, @Context HttpServletRequest request){
+        Annuaire annuaire = (Annuaire)request.getSession().getAttribute("annuaire");
+        if(annuaire == null) {
+            annuaire = new Annuaire();       
+        }
+        annuaire.deletePersonne(personneId);
         request.getSession().setAttribute("annuaire", annuaire);
     }
 }
