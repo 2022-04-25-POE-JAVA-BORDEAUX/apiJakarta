@@ -15,6 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("/personnes")
 public class AnnuaireApi {
@@ -47,7 +48,7 @@ public class AnnuaireApi {
     @Path("/{id}")
     @GET()
     @Produces({ MediaType.APPLICATION_JSON })
-    public Personne getPersonne(@PathParam("id") long personneId, @Context HttpServletRequest request) {
+    public Response getPersonne(@PathParam("id") long personneId, @Context HttpServletRequest request) {
         
         Annuaire annuaire = (Annuaire)request.getSession().getAttribute("annuaire");
         if(annuaire == null) {
@@ -55,11 +56,11 @@ public class AnnuaireApi {
         }
         Optional<Personne> op = annuaire.getPersonne(personneId);
         if(op.isPresent()){
-            return op.get();
+            return Response.ok(op.get()).build();
         }
-        
-        // TODO : à améliorer ?
-        return new Personne();
+        else {
+            return Response.status(404).entity("Cette Personne n'existe pas").build();
+        }
     }
     
     @Path("/{id}")
